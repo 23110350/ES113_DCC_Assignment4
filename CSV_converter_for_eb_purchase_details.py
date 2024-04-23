@@ -20,7 +20,6 @@ def pdf_to_array(pdf_path):
 pdf_path = 'C:\Users\sony\Desktop\DCC_App\PDF Files\EB_Purchase_Details.pdf'
 data_array = pdf_to_array(pdf_path)
 
-print(data_array)
 columns = ['Sr No.', 'Reference No (URN)', 'Journal Date', 'Date of Purchase', 'Date of Expiry',
            'Name of the Purchaser', 'Prefix', 'Bond Number', 'Denominations', 'Issue Branch Code',
            'Issue Teller', 'Status']
