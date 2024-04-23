@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electoral Bonds Search</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Importing Chart.js -->
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h1>Search Electoral Bonds</h1>
+        <form action="/search" method="POST">
+            <div class="form-group">
+                <label for="query">Enter (Bond Number/Political Party Name/Company Name/Reference No (URN)/Pay Branch
+                    Code):</label>
+                <input type="text" name="query" class="form-control" id="query" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+
+        <!-- Canvas element to render the chart -->
+        <canvas id="bar_chart"></canvas>
+    </div>
+    <button id="download_button">Download Chart as PNG</button>
+    <script>
+        // Fetch data from the Flask endpoint
+        fetch('/bar_chart_data')
+            .then(response => response.json())
+            .then(data => {
+                const labels = data.labels;
+                const values = data.values;
+
+                new Chart("bar_chart", {
+                    type: "bar",
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            backgroundColor: "#6CBF5B", 
+                            borderColor: "#4F7837",
+                            data: values
+                        }]
+
+                    },
+                    options: {
+                        plugins: {
+                            title: {
+                                display: true, 
+                                text: 'Donations to Political Parties (in Rupees)', 
+                                font: { size: 16 }, 
+                                position: 'top' 
+                            },
+                            legend: { display: false } 
+                        },
+                        scales: {
+                            y: {
+                                title: {  
+                                    display: true,
+                                    text: "Total Denominations in Rupees",
+                                },
+                                beginAtZero: true
+                            }
+                        },
+                        legend: {
+                            display: false 
+                        }
+                    }
+                });
+            });
+        document.getElementById("download_button").onclick = function () {
+            const canvas = document.getElementById("bar_chart"); 
+            const link = document.createElement("a");
+            link.download = "bar_chart.png"; 
+            link.href = canvas.toDataURL("image/png"); 
+            link.click(); 
+        };
+    </script>
+
+    <!-- Bootstrap and jQuery JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
