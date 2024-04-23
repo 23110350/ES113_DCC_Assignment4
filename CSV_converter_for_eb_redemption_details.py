@@ -20,7 +20,6 @@ def pdf_to_array(pdf_path):
 pdf_path = 'C:\Users\sony\Desktop\DCC_App\PDF Files\EB_Redemption_Details.pdf'
 data_array = pdf_to_array(pdf_path)
 
-print(data_array)
 columns = ['Sr No.', 'Date of Encashment', 'Name of the Political Party',
            'Account no. of Political Party', 'Prefix', 'Bond Number',
            'Denominations', 'Pay Branch Code', 'Pay Teller']
