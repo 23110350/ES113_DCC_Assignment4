@@ -1,4 +1,3 @@
-!pip install tabula-py pandas
 import tabula
 import pandas as pd
 import numpy as np
